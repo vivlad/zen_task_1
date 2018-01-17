@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Entries extends Component {
-    
+   
         removeEntry = (e) => {
             this.props.removeEntry(e.target.dataset.itemid);
         }
