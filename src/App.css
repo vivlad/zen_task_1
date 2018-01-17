@@ -38,3 +38,38 @@
   max-width: 300px;
   margin: 0 auto;
 }
+
+.output-area li {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.entrie-remove {
+  margin: 5px;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #000;
+}
+
+.save-button {
+  margin: 0 10px;
+  border-radius: 3px;
+  background-color: blue;
+  color: #FFF;
+}
+
+.empty .input-field {
+  border: 1px dotted red;
+}
+
+.input-area p {
+  display: none;
+}
+
+.input-area.empty p {
+  display: block;
+  color: red;
+  font-size: 1.5em;
+  font-weight: bold;
+}

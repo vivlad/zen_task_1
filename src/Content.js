@@ -17,19 +17,30 @@ class Content extends Component {
     }
 
     //waiting for item from EntryCreator
-    addEntry(item){
+    addEntry = (item) => {
         var entries = this.state.entries;
         entries.push(item);
+        this.setState({entries: entries});
+    }
+
+    removeEntry = (id) => {
+        var entries = this.state.entries;
+        entries.splice(id, 1);
         this.setState({entries: entries});
     }
 
     render(){
         return(
             <div className="content-container">
-                <h2>Content</h2>
-                <EntryCreator addEntry={this.addEntry.bind(this)}/>
+                <h2>just try to write something and press save</h2>
+                <EntryCreator
+                    addEntry={this.addEntry.bind(this)}
+                />
                 <div className="output-area">
-                    <Entries entries={this.state.entries}/>
+                    <Entries
+                        removeEntry={this.removeEntry.bind(this)}
+                        entries={this.state.entries}
+                    />
                 </div>
             </div>
         );
@@ -37,13 +48,26 @@ class Content extends Component {
 }
 
 class Entries extends Component {
+
+    removeEntry = (e) => {
+        this.props.removeEntry(e.target.dataset.itemid);
+    }
+
     render(){
+
         return(
             <ul>
-            {this.props.entries.map((item, idx) => (
-                <li key={idx}>{item.text}</li>
-            ))}
-        </ul>
+                {
+                    this.props.entries.map((item, idx) => {
+                        return(
+                            <li key={idx}>
+                                {item.text}
+                                <span data-itemid={idx} className="entrie-remove" onClick={this.removeEntry}>x</span>
+                            </li>
+                        );
+                    })
+                }
+            </ul>
         );
     }
 }
