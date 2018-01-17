@@ -23,9 +23,10 @@
 }
 
 @keyframes  App-title-anim {
-  0% { top: 0; }
-  50% { top: 50px; }
-  100% { top: 0; }
+  0% { top: 0; transform: rotate(0); }
+  33.33% { top: 20px; transform: rotate(-5deg); }
+  66.55% { top: -20px; transform: rotate(5deg); }
+  100% { top: 0; transform: rotate(0); }
 }
 
 .App-footer {
@@ -73,3 +74,4 @@
   font-size: 1.5em;
   font-weight: bold;
 }
+
