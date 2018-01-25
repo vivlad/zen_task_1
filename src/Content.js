@@ -6,37 +6,45 @@ class Content extends Component {
     constructor(props) {
         super(props);
         //try to get data from local storage, or fill demo data
-        let entries = localStorage.getItem('zen_entries');
+        let entries = localStorage.getItem('zen_todos');
         if( null == entries ) {
             entries = [
                 {
-                    text: 'Test data'
+                    text: 'Test data',
+                    id: 2
                 },
                 {
-                    text: 'Test data 2'
+                    text: 'Test data 2',
+                    id: 1
                 }
             ]
         } else {
             entries = JSON.parse(entries);
         }
+
         this.state = {
             entries: entries,
         };
+
+        this.addEntry = this.addEntry.bind(this);
+        this.removeEntry = this.removeEntry.bind(this);
     }
 
     //waiting for item from EntryCreator
     addEntry = (item) => {
-        var entries = this.state.entries;
-        entries.push(item);
-        this.setState({entries: entries});
-        localStorage.setItem('zen_entries', JSON.stringify(entries));
+        this.setState(prevState => ({
+            entries: [...prevState.entries, item]
+        }), () => {
+            localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
+        });
     }
 
     removeEntry = (id) => {
-        var entries = this.state.entries;
-        entries.splice(id, 1);
-        this.setState({entries: entries});
-        localStorage.setItem('zen_entries', JSON.stringify(entries));
+        this.setState(prevState => ({
+            entries: prevState.entries.filter(entry => entry.id !== id)
+        }), () =>{
+            localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
+        });
     }
 
     render(){

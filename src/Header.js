@@ -4,9 +4,7 @@ class Header extends Component {
     render(){
         return(
             <header className="App-header">
-                <marquee>
-                    <h1 className="App-title">*=*=*=Welcome to my first app=*=*=*</h1>
-                </marquee>
+                    <h1 className="App-title">Welcome to todo list</h1>
             </header>
         );
     }

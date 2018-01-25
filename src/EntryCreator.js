@@ -6,20 +6,37 @@ class EntryCreator extends Component {
         super(props);
         this.state = {
             isEmpty: false,
+            inputVal: '',
         }
+
+        this.createNewEntry = this.createNewEntry.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    createNewEntry = () => {
-        const inputField = document.getElementsByClassName('input-field')[0];
-        const inputVal = inputField.value;
+    createNewEntry(e) {
+        e.preventDefault();
+        const inputVal = this.state.inputVal;
         if( inputVal !== '' ) {
-            this.setState({isEmpty: false});
-            this.props.addEntry({text: inputVal}); //call parents addEntry
-            inputField.value = ''; // clear input
+            this.setState({
+                isEmpty: false,
+                inputVal: '',
+            });
+            this.props.addEntry({
+                text: inputVal,
+                id: Date.now(),
+            }); //call parents addEntry
         } else {
             this.setState({isEmpty: true});
         }
         
+    }
+
+    handleChange(e){
+        this.setState(
+            {
+                inputVal: e.target.value
+            }
+        )
     }
 
 
@@ -27,8 +44,10 @@ class EntryCreator extends Component {
         return(
                 <div className={`input-area ${this.state.isEmpty ? 'empty' : ''}`}>
                     <p>Please fill input before saving</p>
-                    <input type="text" className="input-field"/>
-                    <button className="save-button" onClick={this.createNewEntry}>Save</button>
+                    <form onSubmit={this.createNewEntry}>
+                        <input value={this.state.inputVal} type="text" className="input-field" onChange={this.handleChange}/>
+                        <button className="save-button">Save</button>
+                    </form>
                 </div>
         );
     }
