@@ -3,10 +3,9 @@
 }
 
 .App-header {
-  background-color: #ff42ff;
-  height: 150px;
+  background-color: #488dd8;
+  height: 75px;
   padding: 20px;
-  color: #0033FF;
 }
 
 .App-header marquee {
@@ -30,19 +29,20 @@
 }
 
 .App-footer {
-  background-color: green;
+  background-color: #1fa67a;
   padding: 50px 0;
 }
 
 .content-container {
   padding: 20px;
-  max-width: 300px;
+  max-width: 400px;
   margin: 0 auto;
 }
 
 .output-area li {
   margin-bottom: 20px;
   text-align: right;
+  position: relative;
 }
 
 .entrie-remove {
@@ -75,3 +75,25 @@
   font-weight: bold;
 }
 
+.item-text {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0 85px 0 0;
+  display: inline-block;
+}
+
+.filter-group {
+  margin: 20px 0;
+}
+
+.output-area .btn.focus,
+.output-area .btn:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-group.item-controls {
+  position: absolute;
+  right: 0;
+  top: 5px;
+}

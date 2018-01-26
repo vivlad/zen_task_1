@@ -25,14 +25,23 @@ class Entries extends Component {
                         entries.map((item) => {
                             return(
                                 <li key={item.id} style={{color: '#'+Math.random().toString(16).slice(2, 8).toUpperCase()}}>
-                                    {item.text}
-                                    <input
-                                        type="checkbox"
-                                        onChange={(e)=>this.toggleStatus(item.id)}
-                                        checked={item.completed}
-                                    >
-                                    </input>
-                                    <span className="entrie-remove" onClick={() =>this.removeEntry(item.id)}>x</span>
+                                    <span className="item-text">{item.text}</span>
+                                    <span className="btn-group item-controls">
+                                        <button 
+                                            type="button" 
+                                            onClick={(e)=>this.toggleStatus(item.id)}
+                                            className={`btn ${item.completed ? 'btn-success' : 'btn-warning'}`}
+                                        >
+                                        <i className={`fa ${item.completed ? 'fa-calendar-check-o' : 'fa-calendar-times-o'}`}></i>
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            className="btn btn-danger"
+                                            onClick={() =>this.removeEntry(item.id)}
+                                        >
+                                        <i className="fa fa-trash"></i>
+                                        </button>
+                                    </span>
                                 </li>
                             );
                         })

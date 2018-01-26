@@ -11,13 +11,13 @@ class Content extends Component {
         if( null == entries ) {
             entries = [
                 {
-                    text: 'Test data',
-                    id: 2,
-                    completed: false
+                    text: 'Create first homework',
+                    id: 1,
+                    completed: true
                 },
                 {
-                    text: 'Test data 2',
-                    id: 1,
+                    text: 'Create second homework',
+                    id: 2,
                     completed: false
                 }
             ]

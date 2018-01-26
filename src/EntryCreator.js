@@ -46,7 +46,7 @@ class EntryCreator extends Component {
                     <p>Please fill input before saving</p>
                     <form onSubmit={this.createNewEntry}>
                         <input value={this.state.inputVal} type="text" className="input-field" onChange={this.handleChange}/>
-                        <button className="save-button">Save</button>
+                        <button className="save-button btn btn-primary">Save</button>
                     </form>
                 </div>
         );
