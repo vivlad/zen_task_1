@@ -89,6 +89,7 @@ class Content extends Component {
                 <EntryFilter
                     showAll={this.showAll}
                     showCompleted={this.showCompleted}
+                    filter={this.state.filter}
                 />
                 <div className="output-area">
                     <Entries
