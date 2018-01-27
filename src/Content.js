@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Entries from './Entries';
 import EntryFilter from './EntryFilter';
+import EntryCreator from './EntryCreator';
 
 class Content extends Component {
     constructor(props) {
@@ -36,39 +37,15 @@ class Content extends Component {
         this.showAll = this.showAll.bind(this);
         this.showCompleted = this.showCompleted.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    createNewEntry(e) {
-        e.preventDefault();
-        const inputVal = this.state.inputVal;
-        if( inputVal !== '' ) {
-            this.setState({
-                isEmpty: false,
-                inputVal: '',
-            });
-            let item = {
-                text: inputVal,
-                id: Date.now(),
-                completed: false,
-            }
-            this.setState(prevState => ({
-                entries: [...prevState.entries, item]
-            }), () => {
-                localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
-            });
-        } else {
-            this.setState({isEmpty: true});
-        }
-        
-    }
 
-    handleChange(e){
-        this.setState(
-            {
-                inputVal: e.target.value
-            }
-        )
+    createNewEntry(item) {
+        this.setState(prevState => ({
+            entries: [...prevState.entries, item]
+        }), () => {
+            localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
+        });
     }
 
     removeEntry = (id) => {
@@ -108,18 +85,9 @@ class Content extends Component {
         return(
             <div className="content-container">
                 <h2>just try to write something and press save</h2>
-                <div className={`input-area ${this.state.isEmpty ? 'empty' : ''}`}>
-                    <p>Please fill input before saving</p>
-                    <form onSubmit={this.createNewEntry}>
-                        <input 
-                            value={this.state.inputVal} 
-                            type="text" 
-                            className="input-field" 
-                            onChange={this.handleChange}
-                        />
-                        <button className="save-button btn btn-primary">Save</button>
-                    </form>
-                </div>
+                <EntryCreator
+                    transferItem={this.createNewEntry}
+                />
                 <EntryFilter
                     showAll={this.showAll}
                     showCompleted={this.showCompleted}
