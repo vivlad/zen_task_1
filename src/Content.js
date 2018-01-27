@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import EntryCreator from './EntryCreator';
 import Entries from './Entries';
 import EntryFilter from './EntryFilter';
 
@@ -27,23 +26,49 @@ class Content extends Component {
 
         this.state = {
             entries: entries,
-            filter: 'all'
+            filter: 'all',
+            isEmpty: false,
+            inputVal: '',
         };
 
-        this.addEntry = this.addEntry.bind(this);
         this.removeEntry = this.removeEntry.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
         this.showAll = this.showAll.bind(this);
         this.showCompleted = this.showCompleted.bind(this);
+        this.createNewEntry = this.createNewEntry.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    //waiting for item from EntryCreator
-    addEntry = (item) => {
-        this.setState(prevState => ({
-            entries: [...prevState.entries, item]
-        }), () => {
-            localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
-        });
+    createNewEntry(e) {
+        e.preventDefault();
+        const inputVal = this.state.inputVal;
+        if( inputVal !== '' ) {
+            this.setState({
+                isEmpty: false,
+                inputVal: '',
+            });
+            let item = {
+                text: inputVal,
+                id: Date.now(),
+                completed: false,
+            }
+            this.setState(prevState => ({
+                entries: [...prevState.entries, item]
+            }), () => {
+                localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
+            });
+        } else {
+            this.setState({isEmpty: true});
+        }
+        
+    }
+
+    handleChange(e){
+        this.setState(
+            {
+                inputVal: e.target.value
+            }
+        )
     }
 
     removeEntry = (id) => {
@@ -83,9 +108,18 @@ class Content extends Component {
         return(
             <div className="content-container">
                 <h2>just try to write something and press save</h2>
-                <EntryCreator
-                    addEntry={this.addEntry}
-                />
+                <div className={`input-area ${this.state.isEmpty ? 'empty' : ''}`}>
+                    <p>Please fill input before saving</p>
+                    <form onSubmit={this.createNewEntry}>
+                        <input 
+                            value={this.state.inputVal} 
+                            type="text" 
+                            className="input-field" 
+                            onChange={this.handleChange}
+                        />
+                        <button className="save-button btn btn-primary">Save</button>
+                    </form>
+                </div>
                 <EntryFilter
                     showAll={this.showAll}
                     showCompleted={this.showCompleted}
