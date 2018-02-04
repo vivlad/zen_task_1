@@ -28,19 +28,11 @@ class Content extends Component {
         this.state = {
             entries: entries,
             filter: 'all',
-            isEmpty: false,
-            inputVal: '',
         };
-
-        this.removeEntry = this.removeEntry.bind(this);
-        this.toggleStatus = this.toggleStatus.bind(this);
-        this.showAll = this.showAll.bind(this);
-        this.showCompleted = this.showCompleted.bind(this);
-        this.createNewEntry = this.createNewEntry.bind(this);
     }
 
 
-    createNewEntry(item) {
+    createNewEntry = (item) => {
         this.setState(prevState => ({
             entries: [...prevState.entries, item]
         }), () => {
@@ -51,7 +43,7 @@ class Content extends Component {
     removeEntry = (id) => {
         this.setState(prevState => ({
             entries: prevState.entries.filter(entry => entry.id !== id)
-        }), () =>{
+        }), () => {
             localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
         });
     }
@@ -60,11 +52,11 @@ class Content extends Component {
         this.setState(prevState => ({
             entries: prevState.entries.map((entry) => {
                 if( entry.id === id ) {
-                    entry.completed = entry.completed === true ? false : true; //toggle status
+                    entry.completed = ! entry.completed; //toggle status
                 }
                 return entry;
             })
-        }), () =>{
+        }), () => {
             localStorage.setItem('zen_todos', JSON.stringify(this.state.entries));
         });
     }

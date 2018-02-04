@@ -1,10 +1,10 @@
-.App {
+#root {
   text-align: center;
 }
 
 .App-header {
   background-color: #488dd8;
-  height: 75px;
+  min-height: 75px;
   padding: 20px;
 }
 
@@ -96,4 +96,9 @@
   position: absolute;
   right: 0;
   top: 5px;
+}
+
+nav a {
+  color: greenyellow;
+  margin: 0 10px;
 }

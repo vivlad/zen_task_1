@@ -10,11 +10,9 @@ class EntryCreator extends Component {
             isEmpty: false,
         }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.createNewEntry = this.createNewEntry.bind(this)
     }
 
-    handleChange(e){
+    handleChange = (e) => {
         this.setState(
             {
                 inputVal: e.target.value
@@ -22,7 +20,7 @@ class EntryCreator extends Component {
         )
     }
 
-    createNewEntry(e) {
+    createNewEntry = (e) => {
         e.preventDefault();
         const inputVal = this.state.inputVal;
         if( inputVal !== '' ) {
